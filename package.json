@@ -1,0 +1,22 @@
+{
+  "name": "protoface",
+  "version": "0.0.1",
+  "description": "Prototype-Interface for JavaScript.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "keywords": [
+    "interface",
+    "prototype",
+    "json-schema",
+    "mixin"
+  ],
+  "author": "Rashad Majali <rashad.612@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^1.9.1",
+    "chai-json-schema": "^1.1.0",
+    "mocha": "^1.20.1"
+  }
+}
