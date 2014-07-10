@@ -1,0 +1,80 @@
+var chai = require('chai');
+chai.use(require('chai-json-schema'));
+
+var expect = chai.expect,
+    I = require('./');
+
+describe('protoface', function() {
+  beforeEach(function() {
+    this.fixObject = {
+      name: 'Fix Object',
+      defaults: {
+        attr: 1
+      },
+      get: function(id) {},
+      set: function(id, data) {}
+    };
+
+    this.schema = {
+      "name": "Interface",
+      "type": "object",
+      "required": ["name", "defaults", "get", "set"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "defaults": {
+          "type": "object",
+          "required": ["attr"],
+          "properties": {
+            "attr": {
+              "type": "number",
+              "format": "digits",
+              "minimum": 0
+            }
+          }
+        },
+        "set": {
+          "type": "function",
+          // "isFunction": true,
+          // "properties": {
+          //   "paramters": {
+          //     "type": "array",
+          //     "items": [
+          //       {
+          //         "title": "id",
+          //         "type": "string",
+          //         "minLength": 1
+          //       },
+          //       {
+          //         "title": "data",
+          //         "type": "string",
+          //         "minLength": 1
+          //       }
+          //     ]
+          //   }
+          // }
+        }
+      }
+    };
+  });
+
+  afterEach(function() {
+    this.fixObject = null;
+    this.schema = null;
+  });
+
+  it('should allow json-schema validators to accept methods', function() {
+    // var isValid = I(this.fixObject, this.schema);
+    var isValid = I({
+      se: '', //function() {}
+    },
+    {
+      se: {
+        type: 'function'
+      }
+    })
+    expect(isValid).to.be.ok;
+  });
+});

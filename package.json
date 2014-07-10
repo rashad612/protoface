@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "description": "Prototype-Interface for JavaScript.",
   "main": "index.js",
-  "directories": {
-    "test": "test"
+  "scripts": {
+    "test": "mocha test.js --ui=bdd --reporter=spec"
   },
   "keywords": [
     "interface",
@@ -13,10 +13,14 @@
     "mixin"
   ],
   "author": "Rashad Majali <rashad.612@gmail.com>",
-  "license": "MIT",
+  "dependencies": {
+    "jjv": "^1.0.0",
+    "tv4": "^1.0.18"
+  },
   "devDependencies": {
     "chai": "^1.9.1",
     "chai-json-schema": "^1.1.0",
     "mocha": "^1.20.1"
-  }
+  },
+  "license": "MIT"
 }
