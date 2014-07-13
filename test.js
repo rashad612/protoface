@@ -68,13 +68,18 @@ describe('protoface', function() {
   it('should allow json-schema validators to accept methods', function() {
     // var isValid = I(this.fixObject, this.schema);
     var isValid = I({
-      se: '', //function() {}
+    type: 'object',
+    properties: {
+        x: {
+            type: 'number'
+        },
+        y: {
+            type: 'function'
+        }
     },
-    {
-      se: {
-        type: 'function'
-      }
-    })
+    required: ['x', 'y']
+ }, {x: 10, y: function(x, y) {}});
+
     expect(isValid).to.be.ok;
   });
 });

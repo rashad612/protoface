@@ -15,7 +15,7 @@
   "author": "Rashad Majali <rashad.612@gmail.com>",
   "dependencies": {
     "jjv": "^1.0.0",
-    "tv4": "^1.0.18"
+    "sinon": "^1.10.3"
   },
   "devDependencies": {
     "chai": "^1.9.1",
