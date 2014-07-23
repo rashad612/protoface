@@ -36,25 +36,26 @@ describe('protoface', function() {
           }
         },
         "set": {
-          "type": "function",
-          // "isFunction": true,
-          // "properties": {
-          //   "paramters": {
-          //     "type": "array",
-          //     "items": [
-          //       {
-          //         "title": "id",
-          //         "type": "string",
-          //         "minLength": 1
-          //       },
-          //       {
-          //         "title": "data",
-          //         "type": "string",
-          //         "minLength": 1
-          //       }
-          //     ]
-          //   }
-          // }
+          "type": "object",
+          "isFunction": true,
+          "properties": {
+            "args": {
+              "type": "array",
+              "required": ["id", "data"],
+              "items": [
+                {
+                  "title": "id",
+                  "type": "string",
+                  "minLength": 1
+                },
+                {
+                  "title": "data",
+                  "type": "string",
+                  "minLength": 1
+                }
+              ]
+            }
+          }
         }
       }
     };
@@ -66,19 +67,19 @@ describe('protoface', function() {
   });
 
   it('should allow json-schema validators to accept methods', function() {
-    // var isValid = I(this.fixObject, this.schema);
-    var isValid = I({
-    type: 'object',
-    properties: {
-        x: {
-            type: 'number'
-        },
-        y: {
-            type: 'function'
-        }
-    },
-    required: ['x', 'y']
- }, {x: 10, y: function(x, y) {}});
+    var isValid = I(this.schema, this.fixObject);
+ //    var isValid = I({
+ //    type: 'object',
+ //    properties: {
+ //        x: {
+ //            type: 'number'
+ //        },
+ //        y: {
+ //            type: 'function'
+ //        }
+ //    },
+ //    required: ['x', 'y']
+ // }, {x: 10, y: function(x, y) {}});
 
     expect(isValid).to.be.ok;
   });

@@ -4,7 +4,8 @@
   "description": "Prototype-Interface for JavaScript.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test.js --ui=bdd --reporter=spec"
+    "test": "mocha test.js --ui=bdd --reporter=spec",
+    "test-w": "mocha test.js --ui=bdd --reporter=spec --watch"
   },
   "keywords": [
     "interface",
@@ -15,7 +16,8 @@
   "author": "Rashad Majali <rashad.612@gmail.com>",
   "dependencies": {
     "jjv": "^1.0.0",
-    "sinon": "^1.10.3"
+    "sinon": "^1.10.3",
+    "underscore": "^1.6.0"
   },
   "devDependencies": {
     "chai": "^1.9.1",
