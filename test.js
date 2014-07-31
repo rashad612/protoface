@@ -2,85 +2,114 @@ var chai = require('chai');
 chai.use(require('chai-json-schema'));
 
 var expect = chai.expect,
-    I = require('./');
+    i = require('./');
 
 describe('protoface', function() {
-  beforeEach(function() {
-    this.fixObject = {
-      name: 'Fix Object',
-      defaults: {
-        attr: 1
-      },
-      get: function(id) {},
-      set: function(id, data) {}
+  
+  it('should allow json-schema validators to accept "function" data type', function() {
+    var schema = {
+      "fn": {
+        "type": "function"  
+      }
     };
 
-    this.schema = {
-      "name": "Interface",
+    var data =  {
+      fn: function() {}
+    };
+
+    var err = i(schema, data);
+    expect(err).to.be.null;
+  });
+
+  it('should validate the implementation of function arguments', function() {
+    var schema = {
       "type": "object",
-      "required": ["name", "defaults", "get", "set"],
       "properties": {
-        "name": {
-          "type": "string",
-          "minLength": 1
-        },
-        "defaults": {
-          "type": "object",
-          "required": ["attr"],
-          "properties": {
-            "attr": {
-              "type": "number",
-              "format": "digits",
-              "minimum": 0
-            }
-          }
-        },
-        "set": {
-          "type": "object",
-          "isFunction": true,
-          "properties": {
-            "args": {
-              "type": "array",
-              "required": ["id", "data"],
-              "items": [
-                {
-                  "title": "id",
-                  "type": "string",
-                  "minLength": 1
-                },
-                {
-                  "title": "data",
-                  "type": "string",
-                  "minLength": 1
-                }
-              ]
-            }
-          }
+        "fn": {
+          "type": "function",
+          "arguments": ["arg1", "arg2"]
         }
       }
     };
+
+    var data = {
+        fn: function(arg1, arg2) {}
+    };
+
+    var err = i(schema, data);
+
+    expect(err).to.be.null;
   });
 
-  afterEach(function() {
-    this.fixObject = null;
-    this.schema = null;
+  it('should validate the existence of arguments regardless their order', function() {
+     var schema = {
+      "type": "object",
+      "properties": {
+        "fn": {
+          "type": "function",
+          "arguments": ["arg1", "arg2"]
+        }
+      }
+    };
+
+    var data = {
+        fn: function(arg2, arg1) {}
+    };
+
+    var err = i(schema, data);
+
+    expect(err).to.be.null;
   });
 
-  it('should allow json-schema validators to accept methods', function() {
-    var isValid = I(this.schema, this.fixObject);
- //    var isValid = I({
- //    type: 'object',
- //    properties: {
- //        x: {
- //            type: 'number'
- //        },
- //        y: {
- //            type: 'function'
- //        }
- //    },
- //    required: ['x', 'y']
- // }, {x: 10, y: function(x, y) {}});
+  it('should validate the existence of arguments regardless other arguments', function() {
+    var schema = {
+      "type": "object",
+      "properties": {
+        "fn": {
+          "type": "function",
+          "arguments": ["arg1", "arg2"]
+        }
+      }
+    };
 
-    expect(isValid).to.be.ok;
+    var data = {
+        fn: function(arg2, arg1, arg3) {}
+    };
+
+    var err = i(schema, data);
+
+    expect(err).to.be.null;
+  });
+
+  it('should continue validate normal schemas', function() {
+    var schema = {
+      "type": "object",
+      "properties": {
+        "fn": {
+          "type": "function",
+          "arguments": ["arg1", "arg2"]
+        },
+        "coords": {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": 'number'
+            },
+            "y": {
+              "type": 'number'
+            }
+          },
+          "required": ["x", "y"]
+        }
+      }
+    };
+    var data = {
+        fn: function(arg2, arg1, arg3) {},
+        coords: {x: 1, y: 2}
+    };
+
+    var err = i(schema, data);
+
+    expect(err).to.be.null;
   });
 });
