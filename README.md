@@ -1,4 +1,4 @@
-## Protoface
+## Protoface [![Build Status](https://travis-ci.org/rashad612/protoface.svg)](https://travis-ci.org/rashad612/protoface)
 
 Like OO Interfaces, we need to ensure the prototypal objects must implement specific methods.
 
