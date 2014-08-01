@@ -1,6 +1,6 @@
 {
   "name": "protoface",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Prototype-Interface for JavaScript.",
   "author": "Rashad Majali <rashad.612@gmail.com>",
   "main": "index.js",
