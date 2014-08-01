@@ -1,11 +1,10 @@
 var chai = require('chai');
-chai.use(require('chai-json-schema'));
 
 var expect = chai.expect,
     i = require('./');
 
 describe('protoface', function() {
-  
+
   it('should allow json-schema validators to accept "function" data type', function() {
     var schema = {
       "fn": {
