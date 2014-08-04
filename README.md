@@ -37,7 +37,7 @@ var err = p(schema, data); // err === null
 
 ...
 
-// The implemntation of method and arguments should be correct.
+// The implementation of method and arguments should be correct.
 var schema = {
   "type": "object",
   "properties": {
